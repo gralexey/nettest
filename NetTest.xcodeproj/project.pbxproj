@@ -18,6 +18,9 @@
 		66CA7B4C15F217B3003E5E92 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66CA7B3315F217B3003E5E92 /* Foundation.framework */; };
 		66CA7B5415F217B3003E5E92 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 66CA7B5215F217B3003E5E92 /* InfoPlist.strings */; };
 		66CA7B5715F217B3003E5E92 /* NetTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66CA7B5615F217B3003E5E92 /* NetTestTests.m */; };
+		66CA7B6315F217DB003E5E92 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66CA7B6115F217DB003E5E92 /* ViewController.m */; };
+		66CA7B6415F217DB003E5E92 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66CA7B6215F217DB003E5E92 /* ViewController.xib */; };
+		66CA7B6715F2192E003E5E92 /* NetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66CA7B6615F2192E003E5E92 /* NetController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +50,11 @@
 		66CA7B5315F217B3003E5E92 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		66CA7B5515F217B3003E5E92 /* NetTestTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetTestTests.h; sourceTree = "<group>"; };
 		66CA7B5615F217B3003E5E92 /* NetTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NetTestTests.m; sourceTree = "<group>"; };
+		66CA7B6015F217DB003E5E92 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		66CA7B6115F217DB003E5E92 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		66CA7B6215F217DB003E5E92 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
+		66CA7B6515F2192E003E5E92 /* NetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetController.h; sourceTree = "<group>"; };
+		66CA7B6615F2192E003E5E92 /* NetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +115,11 @@
 			isa = PBXGroup;
 			children = (
 				66CA7B4015F217B3003E5E92 /* AppDelegate.h */,
+				66CA7B6015F217DB003E5E92 /* ViewController.h */,
+				66CA7B6115F217DB003E5E92 /* ViewController.m */,
+				66CA7B6515F2192E003E5E92 /* NetController.h */,
+				66CA7B6615F2192E003E5E92 /* NetController.m */,
+				66CA7B6215F217DB003E5E92 /* ViewController.xib */,
 				66CA7B4115F217B3003E5E92 /* AppDelegate.m */,
 				66CA7B3815F217B3003E5E92 /* Supporting Files */,
 			);
@@ -215,6 +228,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				66CA7B3C15F217B3003E5E92 /* InfoPlist.strings in Resources */,
+				66CA7B6415F217DB003E5E92 /* ViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,6 +265,8 @@
 			files = (
 				66CA7B3E15F217B3003E5E92 /* main.m in Sources */,
 				66CA7B4215F217B3003E5E92 /* AppDelegate.m in Sources */,
+				66CA7B6315F217DB003E5E92 /* ViewController.m in Sources */,
+				66CA7B6715F2192E003E5E92 /* NetController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
