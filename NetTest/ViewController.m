@@ -44,12 +44,13 @@
 
 - (IBAction)sendData:(id)sender
 {
-    NSString *string = [[NSString alloc] initWithString:@"string"];
-    NSData *data = [[NSData alloc] initWithBytes:[string UTF8String]  length:strlen([string UTF8String])];
-    [string release];
-    [self.nc sendData:data];
-    
-    [data release];
+    char *str = "test_string";
+    [self.nc sendData:str];
+}
+
+- (IBAction)connect:(id)sender
+{
+    [self.nc connect];
 }
 
 @end

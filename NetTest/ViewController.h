@@ -17,4 +17,5 @@
 @property (retain) NetController *nc;
 
 - (IBAction)sendData:(id)sender;
+- (IBAction)connect:(id)sender;
 @end

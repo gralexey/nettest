@@ -21,6 +21,7 @@
 		66CA7B6315F217DB003E5E92 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66CA7B6115F217DB003E5E92 /* ViewController.m */; };
 		66CA7B6415F217DB003E5E92 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66CA7B6215F217DB003E5E92 /* ViewController.xib */; };
 		66CA7B6715F2192E003E5E92 /* NetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66CA7B6615F2192E003E5E92 /* NetController.m */; };
+		66CE840A15F296650060146C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66CE840915F296650060146C /* CFNetwork.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		66CA7B6215F217DB003E5E92 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		66CA7B6515F2192E003E5E92 /* NetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetController.h; sourceTree = "<group>"; };
 		66CA7B6615F2192E003E5E92 /* NetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetController.m; sourceTree = "<group>"; };
+		66CE840915F296650060146C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66CE840A15F296650060146C /* CFNetwork.framework in Frameworks */,
 				66CA7B3215F217B3003E5E92 /* UIKit.framework in Frameworks */,
 				66CA7B3415F217B3003E5E92 /* Foundation.framework in Frameworks */,
 				66CA7B3615F217B3003E5E92 /* CoreGraphics.framework in Frameworks */,
@@ -103,6 +106,7 @@
 		66CA7B3015F217B3003E5E92 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				66CE840915F296650060146C /* CFNetwork.framework */,
 				66CA7B3115F217B3003E5E92 /* UIKit.framework */,
 				66CA7B3315F217B3003E5E92 /* Foundation.framework */,
 				66CA7B3515F217B3003E5E92 /* CoreGraphics.framework */,
@@ -432,6 +436,7 @@
 				66CA7B5C15F217B3003E5E92 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		66CA7B5D15F217B3003E5E92 /* Build configuration list for PBXNativeTarget "NetTestTests" */ = {
 			isa = XCConfigurationList;
@@ -440,6 +445,7 @@
 				66CA7B5F15F217B3003E5E92 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

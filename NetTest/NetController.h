@@ -8,11 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NetController : NSObject
+@interface NetController : NSObject <NSStreamDelegate>
 {
     CFSocketRef _socket;
+    CFReadStreamRef readStream;
+    CFWriteStreamRef writeStream;
+    NSInputStream *_inputStream;
+    NSOutputStream *_outputStream;
 }
 
 - (void)connect;
-- (void)sendData:(NSData *)data;
+- (void)sendData:(char *)data;
 @end

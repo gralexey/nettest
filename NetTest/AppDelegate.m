@@ -30,7 +30,6 @@
     [self.window makeKeyAndVisible];
     
     NetController *nc = [[NetController alloc] init];
-    [nc connect];
     vc.nc = nc;
     [nc release];
     
