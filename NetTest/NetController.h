@@ -17,6 +17,6 @@
     NSOutputStream *_outputStream;
 }
 
-- (void)connect;
+- (int)connect;
 - (void)sendData:(char *)data;
 @end

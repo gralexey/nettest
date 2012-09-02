@@ -57,6 +57,7 @@
 		66CA7B6515F2192E003E5E92 /* NetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetController.h; sourceTree = "<group>"; };
 		66CA7B6615F2192E003E5E92 /* NetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetController.m; sourceTree = "<group>"; };
 		66CE840915F296650060146C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		66CE841015F3DB020060146C /* proto.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = proto.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +124,7 @@
 				66CA7B6115F217DB003E5E92 /* ViewController.m */,
 				66CA7B6515F2192E003E5E92 /* NetController.h */,
 				66CA7B6615F2192E003E5E92 /* NetController.m */,
+				66CE841015F3DB020060146C /* proto.h */,
 				66CA7B6215F217DB003E5E92 /* ViewController.xib */,
 				66CA7B4115F217B3003E5E92 /* AppDelegate.m */,
 				66CA7B3815F217B3003E5E92 /* Supporting Files */,
