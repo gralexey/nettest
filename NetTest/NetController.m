@@ -15,33 +15,6 @@
 
 @implementation NetController
 
-/*void callBackFunction(CFSocketRef s, CFSocketCallBackType callbackType, CFDataRef address, const void *data, void *info)
-{
-    switch (callbackType) {
-        case kCFSocketNoCallBack:
-            NSLog(@"kCFSocketNoCallBack");
-            break;
-        case kCFSocketReadCallBack:
-            NSLog(@"kCFSocketReadCallBack");            
-            break;
-        case kCFSocketAcceptCallBack:
-            NSLog(@"kCFSocketAcceptCallBack");
-            break;
-        case kCFSocketDataCallBack:
-            NSLog(@"kCFSocketDataCallBack");
-            break;
-        case kCFSocketConnectCallBack:
-            NSLog(@"kCFSocketConnectCallBack");
-            break;
-        case kCFSocketWriteCallBack:
-            NSLog(@"kCFSocketWriteCallBack");
-            break;
-        default:
-            NSLog(@"Unknown callback");
-            break;
-    }
-}*/
-
 - (id)init
 {
     self = [super init];
@@ -117,19 +90,27 @@
     packet_header.proto = PROTO_VERSION;
     packet_header.seq = 0;
     packet_header.msg = MRIM_CS_HELLO;
+    packet_header.dlen = 2*sizeof(unsigned long);
     memset(packet_header.reserved, 0, sizeof(packet_header.reserved));
     
     if([_outputStream streamStatus] == NSStreamStatusNotOpen) {
         return -1;
     }
     
-    int num_write_bytes = [_outputStream write:(uint8_t *)&packet_header maxLength:sizeof(packet_header)];
-    printf("write bytes: %d\n\n", num_write_bytes);
+    [_outputStream write:(uint8_t *)&packet_header maxLength:sizeof(packet_header)];
+    unsigned long ping_period = 0x5000000000000000;
+    unsigned long server_ping_period = 0x5000000000000000;
+    [_outputStream write:(uint8_t *)&ping_period maxLength:sizeof(ping_period)];
+    [_outputStream write:(uint8_t *)&server_ping_period maxLength:sizeof(server_ping_period)];
     
     uint8_t buf[128];
     int num_read_bytes = [_inputStream read:buf maxLength:127];
     buf[num_read_bytes - 1] = 0;
     printf("read bytes: %d\nread string: %s\n", num_read_bytes, buf);
+    
+    mrim_packet_header_t answer_header;
+    memcpy(&answer_header, buf, sizeof(mrim_packet_header_t));
+    printf("%x\n", answer_header.magic);
     
     NSString *answer = [[NSString alloc] initWithBytes:buf length:num_read_bytes encoding:NSUTF8StringEncoding];
     NSLog(@"answer: %@", answer);
