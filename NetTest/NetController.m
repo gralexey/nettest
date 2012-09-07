@@ -70,11 +70,9 @@
     [_inputStream open];
     
     uint8_t serverAddr[32];
-    int readBytes = [_inputStream read:serverAddr maxLength:31];
-    NSLog(@"stream status 1: %u", [_outputStream streamStatus]);
+    int readBytes = [_inputStream read:serverAddr maxLength:31];                        // got address and port of target server
     [_inputStream close];
     [_outputStream close];
-    NSLog(@"stream status 2: %u", [_outputStream streamStatus]);
     
     serverAddr[readBytes - 1] = 0;
     char *colon = strchr((char *)serverAddr, ':');
@@ -83,7 +81,30 @@
     char *serverIp = (char *)serverAddr;
     printf("ip: %s\nport: %s\n\n", serverIp, serverPort);
     
-    [self connectToSpecifiedServerIP:serverIp withPort:serverPort];
+    [self connectToSpecifiedServerIP:serverIp withPort:serverPort];                     // connect to specified server    
+    [self sendPacketHello];    
+    [self recvPacket];
+
+    return 0;
+}
+
+- (void)recvPacket
+{
+    uint8_t buf[128];
+    int num_read_bytes = [_inputStream read:buf maxLength:127];
+    printf("read bytes: %d\n", num_read_bytes);
+    
+    mrim_packet_header_t answer_header;
+    memcpy(&answer_header, buf, sizeof(mrim_packet_header_t));
+    printf("%x\n", answer_header.magic);
+}
+
+- (void)sendPacketHello
+{
+    if([_outputStream streamStatus] == NSStreamStatusNotOpen) {
+        NSLog(@"*** outputStream isn't opened");
+        return;
+    }
     
     mrim_packet_header_t packet_header;
     packet_header.magic = 0xDEADBEEF;
@@ -91,31 +112,14 @@
     packet_header.seq = 0;
     packet_header.msg = MRIM_CS_HELLO;
     packet_header.dlen = 2*sizeof(unsigned long);
-    memset(packet_header.reserved, 0, sizeof(packet_header.reserved));
-    
-    if([_outputStream streamStatus] == NSStreamStatusNotOpen) {
-        return -1;
-    }
+    memset(packet_header.reserved, 0, sizeof(packet_header.reserved));    
     
     [_outputStream write:(uint8_t *)&packet_header maxLength:sizeof(packet_header)];
+    
     unsigned long ping_period = 0x5000000000000000;
-    unsigned long server_ping_period = 0x5000000000000000;
+    unsigned long server_ping_period = 0x5000000000000000;    
     [_outputStream write:(uint8_t *)&ping_period maxLength:sizeof(ping_period)];
     [_outputStream write:(uint8_t *)&server_ping_period maxLength:sizeof(server_ping_period)];
-    
-    uint8_t buf[128];
-    int num_read_bytes = [_inputStream read:buf maxLength:127];
-    buf[num_read_bytes - 1] = 0;
-    printf("read bytes: %d\nread string: %s\n", num_read_bytes, buf);
-    
-    mrim_packet_header_t answer_header;
-    memcpy(&answer_header, buf, sizeof(mrim_packet_header_t));
-    printf("%x\n", answer_header.magic);
-    
-    NSString *answer = [[NSString alloc] initWithBytes:buf length:num_read_bytes encoding:NSUTF8StringEncoding];
-    NSLog(@"answer: %@", answer);
-    
-    return 0;
 }
 
 - (void)connectToSpecifiedServerIP:(char *)serverIp withPort:(char *)serverPort
