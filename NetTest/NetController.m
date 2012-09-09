@@ -89,17 +89,18 @@
     int num_read_bytes = [_inputStream read:buf maxLength:127];
     printf("*** read bytes: %d\n", num_read_bytes);
     if (num_read_bytes < 1) {
-        NSLog(@"Recieved 0 bytes(?)");
+        printf("Recieved 0 bytes\n");
         return;
     }
     
     Packet *packet = [[Packet alloc] initWithBytes:(char *)buf length:num_read_bytes];
-    NSLog(@"recieving packet:");
-    [packet printPacket];
+    if (!packet) {
+        printf("corrupted packet\n");
+        return;
+    }
     
-    //mrim_packet_header_t answer_header;
-    //memcpy(&answer_header, buf, sizeof(mrim_packet_header_t));
-    //printf("%x\n", answer_header.magic);
+    printf("recieving packet:\n");
+    [packet printPacket];
 }
 
 - (void)sendPacketHello
@@ -111,7 +112,7 @@
     Packet *packet = [[Packet alloc] initWithType:MRIM_CS_HELLO];
     
     [_outputStream write:(uint8_t *)[packet bytes] maxLength:[packet length]];
-    NSLog(@"sending packet:");
+    printf("sending packet:");
     [packet printPacket];
     [packet release];
 }
@@ -123,7 +124,13 @@
         return;
     }
     Packet *packet = [[Packet alloc] initWithType:MRIM_CS_LOGIN3];
+    
+    [_outputStream write:(uint8_t *)[packet bytes] maxLength:[packet length]];
+    
+    NSLog(@"sending packet:");
     [packet printPacket];
+    
+    [packet release];
 }
 
 - (void)connectToSpecifiedServerIP:(char *)serverIp withPort:(char *)serverPort
