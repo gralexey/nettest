@@ -19,4 +19,5 @@
 
 - (int)connect;
 - (void)sendData:(char *)data;
+- (void)sendPacketLogin3;
 @end

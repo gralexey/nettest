@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		669205A115FC96F600D63790 /* Packet.m in Sources */ = {isa = PBXBuildFile; fileRef = 669205A015FC96F600D63790 /* Packet.m */; };
 		66CA7B3215F217B3003E5E92 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66CA7B3115F217B3003E5E92 /* UIKit.framework */; };
 		66CA7B3415F217B3003E5E92 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66CA7B3315F217B3003E5E92 /* Foundation.framework */; };
 		66CA7B3615F217B3003E5E92 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66CA7B3515F217B3003E5E92 /* CoreGraphics.framework */; };
@@ -35,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6692059F15FC96F600D63790 /* Packet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Packet.h; sourceTree = "<group>"; };
+		669205A015FC96F600D63790 /* Packet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Packet.m; sourceTree = "<group>"; };
 		66CA7B2D15F217B3003E5E92 /* NetTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66CA7B3115F217B3003E5E92 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		66CA7B3315F217B3003E5E92 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -124,6 +127,8 @@
 				66CA7B6115F217DB003E5E92 /* ViewController.m */,
 				66CA7B6515F2192E003E5E92 /* NetController.h */,
 				66CA7B6615F2192E003E5E92 /* NetController.m */,
+				6692059F15FC96F600D63790 /* Packet.h */,
+				669205A015FC96F600D63790 /* Packet.m */,
 				66CE841015F3DB020060146C /* proto.h */,
 				66CA7B6215F217DB003E5E92 /* ViewController.xib */,
 				66CA7B4115F217B3003E5E92 /* AppDelegate.m */,
@@ -273,6 +278,7 @@
 				66CA7B4215F217B3003E5E92 /* AppDelegate.m in Sources */,
 				66CA7B6315F217DB003E5E92 /* ViewController.m in Sources */,
 				66CA7B6715F2192E003E5E92 /* NetController.m in Sources */,
+				669205A115FC96F600D63790 /* Packet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

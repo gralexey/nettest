@@ -44,8 +44,7 @@
 
 - (IBAction)sendData:(id)sender
 {
-    char *str = "test_string";
-    [self.nc sendData:str];
+    [self.nc sendPacketLogin3];
 }
 
 - (IBAction)connect:(id)sender

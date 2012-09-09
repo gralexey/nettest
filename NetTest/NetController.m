@@ -12,6 +12,7 @@
 #include <netinet/in.h>
 #import <CFNetwork/CFSocketStream.h>
 #import "proto.h"
+#import "Packet.h"
 
 @implementation NetController
 
@@ -34,10 +35,7 @@
             break;
         case NSStreamEventHasBytesAvailable:
             NSLog(@"NSStreamEventHasBytesAvailable");
-            uint8_t buf[256];
-            int read_bytes = [_inputStream read:buf maxLength:255];
-            *(buf + read_bytes - 1) = 0;
-            NSLog(@"%s", buf);
+            [self processPacket];
             break;
         case NSStreamEventHasSpaceAvailable:
             NSLog(@"NSStreamEventHasSpaceAvailable");
@@ -64,8 +62,7 @@
     _outputStream = (NSOutputStream *)writeStream;
     [_inputStream setDelegate:self];
     [_outputStream setDelegate:self];
-    [_inputStream scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
-    [_outputStream scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+
     [_outputStream open];
     [_inputStream open];
     
@@ -81,22 +78,28 @@
     char *serverIp = (char *)serverAddr;
     printf("ip: %s\nport: %s\n\n", serverIp, serverPort);
     
-    [self connectToSpecifiedServerIP:serverIp withPort:serverPort];                     // connect to specified server    
-    [self sendPacketHello];    
-    [self recvPacket];
-
+    [self connectToSpecifiedServerIP:serverIp withPort:serverPort];                     // connect to specified server
+    [self sendPacketHello];
     return 0;
 }
 
-- (void)recvPacket
+- (void)processPacket
 {
     uint8_t buf[128];
     int num_read_bytes = [_inputStream read:buf maxLength:127];
-    printf("read bytes: %d\n", num_read_bytes);
+    printf("*** read bytes: %d\n", num_read_bytes);
+    if (num_read_bytes < 1) {
+        NSLog(@"Recieved 0 bytes(?)");
+        return;
+    }
     
-    mrim_packet_header_t answer_header;
-    memcpy(&answer_header, buf, sizeof(mrim_packet_header_t));
-    printf("%x\n", answer_header.magic);
+    Packet *packet = [[Packet alloc] initWithBytes:(char *)buf length:num_read_bytes];
+    NSLog(@"recieving packet:");
+    [packet printPacket];
+    
+    //mrim_packet_header_t answer_header;
+    //memcpy(&answer_header, buf, sizeof(mrim_packet_header_t));
+    //printf("%x\n", answer_header.magic);
 }
 
 - (void)sendPacketHello
@@ -105,21 +108,22 @@
         NSLog(@"*** outputStream isn't opened");
         return;
     }
+    Packet *packet = [[Packet alloc] initWithType:MRIM_CS_HELLO];
     
-    mrim_packet_header_t packet_header;
-    packet_header.magic = 0xDEADBEEF;
-    packet_header.proto = PROTO_VERSION;
-    packet_header.seq = 0;
-    packet_header.msg = MRIM_CS_HELLO;
-    packet_header.dlen = 2*sizeof(unsigned long);
-    memset(packet_header.reserved, 0, sizeof(packet_header.reserved));    
-    
-    [_outputStream write:(uint8_t *)&packet_header maxLength:sizeof(packet_header)];
-    
-    unsigned long ping_period = 0x5000000000000000;
-    unsigned long server_ping_period = 0x5000000000000000;    
-    [_outputStream write:(uint8_t *)&ping_period maxLength:sizeof(ping_period)];
-    [_outputStream write:(uint8_t *)&server_ping_period maxLength:sizeof(server_ping_period)];
+    [_outputStream write:(uint8_t *)[packet bytes] maxLength:[packet length]];
+    NSLog(@"sending packet:");
+    [packet printPacket];
+    [packet release];
+}
+
+- (void)sendPacketLogin3
+{
+    if([_outputStream streamStatus] == NSStreamStatusNotOpen) {
+        NSLog(@"*** outputStream isn't opened");
+        return;
+    }
+    Packet *packet = [[Packet alloc] initWithType:MRIM_CS_LOGIN3];
+    [packet printPacket];
 }
 
 - (void)connectToSpecifiedServerIP:(char *)serverIp withPort:(char *)serverPort
@@ -129,11 +133,13 @@
     SInt32 port = atoi(serverPort);    
     CFStreamCreatePairWithSocketToCFHost(kCFAllocatorDefault, host, port, &readStream, &writeStream);
     _inputStream = (NSInputStream *)readStream;
-    _outputStream = (NSOutputStream *)writeStream;    
-    [_inputStream scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
-    [_outputStream scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    _outputStream = (NSOutputStream *)writeStream;        
     [_outputStream open];
     [_inputStream open];
+    [_inputStream setDelegate:self];
+    [_outputStream setDelegate:self];
+    [_inputStream scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    [_outputStream scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
 }
 
 - (void)sendData:(char *)data
